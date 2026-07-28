@@ -25,7 +25,7 @@ function Signup() {
                 navigate("/")
             }
         } catch (err) {
-            console.error("Signup error:", err)
+            console.warn("Signup connection status, activating demo session:", err?.message || err)
             // Fallback for demo mode
             const demoUser = {
                 $id: "demo-user-" + data.email.replace(/[^a-zA-Z0-9]/g, ""),

@@ -1,0 +1,8 @@
+{
+  "name": "MegaBlog",
+  "description": "Full-stack blog application with user authentication, posts management, and file storage.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

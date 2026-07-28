@@ -19,6 +19,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
         render={({ field: { onChange, value } }) => (
           !editorError ? (
             <Editor
+              apiKey="no-api-key-provided"
               tinymceScriptSrc="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"
               initialValue={defaultValue}
               value={value || defaultValue}
@@ -27,6 +28,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
                 height: 380,
                 menubar: true,
                 readonly: false,
+                license_key: 'gpl',
                 plugins: [
                   "image",
                   "advlist",

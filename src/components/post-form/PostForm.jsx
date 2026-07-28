@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { Button, Input, RTE, Select } from "..";
 import appwriteService from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { Send, Upload, Image as ImageIcon, AlertCircle } from "lucide-react";
 
 export default function PostForm({ post }) {
-    const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
+    const { register, handleSubmit, setValue, control, getValues } = useForm({
         defaultValues: {
             title: post?.title || "",
             slug: post?.$id || post?.slug || "",
@@ -36,15 +36,13 @@ export default function PostForm({ post }) {
         return "";
     }, []);
 
-    useEffect(() => {
-        const subscription = watch((value, { name }) => {
-            if (name === "title") {
-                setValue("slug", slugTransform(value.title), { shouldValidate: true });
-            }
-        });
+    const titleValue = useWatch({ control, name: "title" });
 
-        return () => subscription.unsubscribe();
-    }, [watch, slugTransform, setValue]);
+    useEffect(() => {
+        if (titleValue) {
+            setValue("slug", slugTransform(titleValue), { shouldValidate: true });
+        }
+    }, [titleValue, slugTransform, setValue]);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
